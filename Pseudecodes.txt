@@ -1,0 +1,194 @@
+Pseudocodes
+DDL
+Create New Record Type
+
+***************************************************************************************************
+
+recordType = input()
+
+recordFields = []
+
+fieldNumber = int(input())
+
+for i in range(fieldNumber):
+	recordField = input()
+	recordFields.append(recordField)
+
+count = 0
+
+Label: "MainLoop"
+while True:
+	file = open(“SysCat” + str(count))
+	pageCount = 0
+	foreach page in file:
+		page.header.numberOfRecords != 15:
+			foreach record in page:
+				if record.type == 0:
+					record.type = recordType
+					i = 0
+					foreach field in recordFields:
+						record.field[i] = recordFields[i]
+						i += 1
+					page.header.numberOfRecords += 1
+					break "MainLoop"
+		pageCount += 1
+		if pageCount == 1000:
+			break
+	count += 1					
+
+
+createDataFile(recordType + str(0))
+
+****************************************************************************************************
+
+Delete Record Type
+
+recordType = input()
+deleteFile(recordType)
+
+count = 0
+
+while isFileExist(recordType + str(count)):
+	deleteFile(recordType + str(count))
+	count += 1
+
+count = 0
+
+Label: "MainLoop"
+while True:
+	file = open(“SysCat” + str(count))
+	pageCount = 0
+	foreach page in file:
+		page.header.numberOfRecords != 0:
+			foreach record in page:
+				if record.type == recordType:
+					record.type = 0
+					page.header.numberOfRecords -= 1
+					break "MainLoop"
+		pageCount += 1
+		if pageCount == 1000:
+			break
+	count += 1
+
+*****************************************************************************************************
+
+List All Record Types
+
+count = 0
+
+Label: "MainLoop"
+while isFileExist(“SysCat” + str(count)):
+	file = open(“SysCat” + str(count))
+	pageCount = 0
+	foreach page in file:
+		page.header.numberOfRecords != 0:
+			foreach record in page:
+				if record.type != 0:
+					print(record.type)
+		pageCount += 1
+		if pageCount == 1000:
+			break
+	count += 1
+
+******************************************************************************************************
+
+DML
+
+Create a New Record
+
+recordType = input()
+
+count = 0
+
+Label: "MainLoop"
+while True:
+	recordFile = open(recordType + str(count))
+	pageCount = 0
+	foreach page in recordFile:
+		if page.header.numberOfRecords != 28:
+			foreach record in page:
+				if record.header.isEmpty:
+					record.header.isEmpty = False
+					fieldNumber = int(input())
+					for i in range(fieldNumber):
+						record.fields[i] = int(input())
+					page.numberOfRecords += 1
+					break "MainLoop"
+		pageCount += 1
+		if pageCount == 1000:
+			break
+        count += 1
+
+********************************************************************************************************
+Delete a Record
+
+recordType = input()
+
+recordID = int(input())
+
+count = 0
+
+Label: "MainLoop"
+while True:
+	recordFile = open(recordType + str(count))
+	pageCount = 0
+	foreach page in recordFile:
+		if page.header.numberOfRecords != 0:
+			foreach record in page:
+				if !record.header.isEmpty and record.ID == recordID:
+					record.ID = 0
+					page.header.numberOfRecords -= 1
+					break "MainLoop"
+		pageCount += 1
+		if pageCount == 1000:
+			break
+        count += 1
+return None
+
+
+
+********************************************************************************************************
+
+Delete a Record
+
+recordType = input()
+recordID = int(input())
+
+count = 0
+
+Label: "MainLoop"
+while True:
+	recordFile = open(recordType + str(count))
+	pageCount = 0
+	foreach page in recordFile:
+		if page.header.numberOfRecords != 28:
+			foreach record in page:
+				if !record.header.isEmpty and record.ID == recordID:
+					return record
+		pageCount += 1
+		if pageCount == 1000:
+			break
+        count += 1
+return None
+*********************************************************************************************************
+
+Listing All Records
+
+
+recordType = input()
+
+count = 0
+
+Label: "MainLoop"
+while isFileExist(recordType + str(count)):
+	recordFile = open(recordType + str(count))
+	pageCount = 0
+	foreach page in recordFile:
+		if page.header.numberOfRecords != 0:
+			foreach record in page:
+				if !record.header.isEmpty:
+					print(record.type)
+		pageCount += 1
+		if pageCount == 1000:
+			break
+        count += 1
